@@ -1,0 +1,50 @@
+name: scrapper-tools
+
+# ── Environment ────────────────────────────────────────────────────────────────
+# Override NEXT_PUBLIC_API_URL to match your public API endpoint.
+# Default works for local Docker Compose (browser → host port 8000).
+#
+#   NEXT_PUBLIC_API_URL=https://api.example.com docker compose up -d
+
+x-api-url: &api-url ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+
+# ── Services ───────────────────────────────────────────────────────────────────
+services:
+
+  # ── FastAPI scraping backend ─────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: scrapper-tools-api:latest
+    container_name: scrapper-tools-api
+    ports:
+      - "${API_PORT:-8000}:8000"
+    environment:
+      PYTHONUNBUFFERED: "1"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')\""]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  # ── Next.js web UI ────────────────────────────────────────────────────────────
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+      args:
+        # Baked at build time — rebuild when API URL changes
+        NEXT_PUBLIC_API_URL: *api-url
+    image: scrapper-tools-ui:latest
+    container_name: scrapper-tools-ui
+    ports:
+      - "${UI_PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
