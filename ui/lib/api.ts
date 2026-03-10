@@ -5,9 +5,10 @@
  */
 
 // ── shared helpers ────────────────────────────────────────────────────────────
+const baseApiUrl = process.env.NEXT_PUBLIC_API_URL || ""
 
 async function post<T>(path: string, body: unknown): Promise<T> {
-  const res = await fetch(path, {
+  const res = await fetch(`${baseApiUrl}${path}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
