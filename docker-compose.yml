@@ -9,8 +9,6 @@ services:
       dockerfile: Dockerfile
     image: scrapper-tools-api:latest
     container_name: scrapper-tools-api
-    ports:
-      - "${API_PORT:-8000}:8000"
     environment:
       PYTHONUNBUFFERED: "1"
     healthcheck:
