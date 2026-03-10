@@ -7,12 +7,18 @@ WORKDIR /app
 # Copy dependency manifests first for layer caching
 COPY pyproject.toml uv.lock ./
 
-# Install production deps into .venv; --frozen ensures reproducible builds
-RUN uv sync --frozen --no-cache --no-dev
+# Install only third-party deps first (skip building the local package so
+# hatchling doesn't need README.md yet) — this layer is cached until
+# pyproject.toml / uv.lock change.
+RUN uv sync --frozen --no-cache --no-dev --no-install-project
 
-# Copy application source
+# Copy application source + README.md (required by hatchling metadata)
+COPY README.md ./
 COPY api/ ./api/
 COPY scrapper_tools/ ./scrapper_tools/
+
+# Install the local project itself into the already-populated .venv
+RUN uv sync --frozen --no-cache --no-dev
 
 # ── Stage 2: runtime ──────────────────────────────────────────────────────────
 FROM python:3.13-slim AS runtime

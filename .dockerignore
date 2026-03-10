@@ -1,7 +1,6 @@
 .git
 .gitignore
 .github
-README.md
 Dockerfile
 .dockerignore
 docker-compose.yml
