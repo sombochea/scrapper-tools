@@ -146,7 +146,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 Powered by
               </p>
               <a
-                href="https://github.com/sombochea/scrapper-tools"
+                href="https://github.com/D4Vinci/Scrapling"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"

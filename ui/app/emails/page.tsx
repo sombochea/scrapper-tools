@@ -15,7 +15,7 @@ import { apiEmails, type EmailsResult } from "@/lib/api"
 type Status = "idle" | "loading" | "success" | "error"
 
 export default function EmailsPage() {
-  const [url, setUrl] = useState("https://quotes.toscrape.com/")
+  const [url, setUrl] = useState("https://next.cubetiqs.com")
   const [status, setStatus] = useState<Status>("idle")
   const [result, setResult] = useState<EmailsResult | null>(null)
   const [errorMsg, setErrorMsg] = useState("")

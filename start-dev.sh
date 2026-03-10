@@ -11,7 +11,7 @@ API_PID=$!
 
 echo "▶ Starting Next.js UI on :3000 …"
 cd "$ROOT/ui"
-bunx next dev --turbopack &
+bun dev &
 UI_PID=$!
 
 trap "echo '⏹ Stopping…'; kill $API_PID $UI_PID 2>/dev/null; exit" INT TERM
