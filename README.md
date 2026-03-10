@@ -8,12 +8,12 @@ A full-stack web scraping toolkit: a Python scraping library backed by a **FastA
 
 ## Features
 
-| Tool | Description |
-|---|---|
-| **Fetch** | Fetch any URL and inspect rendered HTML, status code, and headers |
-| **Links** | Extract and categorize all hyperlinks from a page |
-| **Emails** | Harvest email addresses from a page, grouped by domain |
-| **Parse** | Run CSS/XPath selectors and extract structured data |
+| Tool       | Description                                                             |
+| ---------- | ----------------------------------------------------------------------- |
+| **Fetch**  | Fetch any URL and inspect rendered HTML, status code, and headers       |
+| **Links**  | Extract and categorize all hyperlinks from a page                       |
+| **Emails** | Harvest email addresses from a page, grouped by domain                  |
+| **Parse**  | Run CSS/XPath selectors and extract structured data                     |
 | **Spider** | Crawl a site depth-first with real-time progress via Server-Sent Events |
 
 ---
@@ -49,7 +49,7 @@ A full-stack web scraping toolkit: a Python scraping library backed by a **FastA
 ### 1 — Clone and install
 
 ```bash
-git clone https://github.com/your-org/scrapper-tools.git
+git clone https://github.com/sombochea/scrapper-tools.git
 cd scrapper-tools
 
 # Python deps
@@ -66,10 +66,10 @@ chmod +x start-dev.sh
 ./start-dev.sh
 ```
 
-| Service | URL |
-|---|---|
-| Web UI | <http://localhost:3000> |
-| API | <http://localhost:8000> |
+| Service            | URL                          |
+| ------------------ | ---------------------------- |
+| Web UI             | <http://localhost:3000>      |
+| API                | <http://localhost:8000>      |
 | API Docs (Swagger) | <http://localhost:8000/docs> |
 
 Press **Ctrl+C** to stop both servers.
@@ -133,8 +133,8 @@ Fetch a URL and return the rendered HTML.
 
 ```json
 {
-  "url": "https://example.com",
-  "render_js": false
+    "url": "https://example.com",
+    "render_js": false
 }
 ```
 
@@ -142,11 +142,11 @@ Fetch a URL and return the rendered HTML.
 
 ```json
 {
-  "url": "https://example.com",
-  "status_code": 200,
-  "content_type": "text/html",
-  "html": "<!doctype html>...",
-  "elements_count": 42
+    "url": "https://example.com",
+    "status_code": 200,
+    "content_type": "text/html",
+    "html": "<!doctype html>...",
+    "elements_count": 42
 }
 ```
 
@@ -160,8 +160,8 @@ Extract all hyperlinks from a page.
 
 ```json
 {
-  "url": "https://example.com",
-  "render_js": false
+    "url": "https://example.com",
+    "render_js": false
 }
 ```
 
@@ -169,13 +169,11 @@ Extract all hyperlinks from a page.
 
 ```json
 {
-  "url": "https://example.com",
-  "total": 12,
-  "internal": 8,
-  "external": 4,
-  "links": [
-    { "href": "/about", "text": "About", "type": "internal" }
-  ]
+    "url": "https://example.com",
+    "total": 12,
+    "internal": 8,
+    "external": 4,
+    "links": [{ "href": "/about", "text": "About", "type": "internal" }]
 }
 ```
 
@@ -189,8 +187,8 @@ Harvest email addresses from a page.
 
 ```json
 {
-  "url": "https://example.com",
-  "render_js": false
+    "url": "https://example.com",
+    "render_js": false
 }
 ```
 
@@ -198,9 +196,9 @@ Harvest email addresses from a page.
 
 ```json
 {
-  "url": "https://example.com",
-  "total": 3,
-  "emails": ["hello@example.com"]
+    "url": "https://example.com",
+    "total": 3,
+    "emails": ["hello@example.com"]
 }
 ```
 
@@ -214,10 +212,10 @@ Run CSS or XPath selectors on a page.
 
 ```json
 {
-  "url": "https://example.com",
-  "selector": "h1",
-  "selector_type": "css",
-  "render_js": false
+    "url": "https://example.com",
+    "selector": "h1",
+    "selector_type": "css",
+    "render_js": false
 }
 ```
 
@@ -227,13 +225,17 @@ Run CSS or XPath selectors on a page.
 
 ```json
 {
-  "url": "https://example.com",
-  "selector": "h1",
-  "selector_type": "css",
-  "count": 1,
-  "results": [
-    { "text": "Example Domain", "html": "<h1>Example Domain</h1>", "tag": "h1" }
-  ]
+    "url": "https://example.com",
+    "selector": "h1",
+    "selector_type": "css",
+    "count": 1,
+    "results": [
+        {
+            "text": "Example Domain",
+            "html": "<h1>Example Domain</h1>",
+            "tag": "h1"
+        }
+    ]
 }
 ```
 
@@ -245,20 +247,20 @@ Crawl a site and stream progress as **Server-Sent Events**.
 
 **Query parameters**
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `url` | string | required | Start URL |
-| `max_pages` | int | `10` | Maximum pages to crawl |
-| `depth` | int | `2` | Maximum crawl depth |
-| `render_js` | bool | `false` | Render JavaScript |
+| Parameter   | Type   | Default  | Description            |
+| ----------- | ------ | -------- | ---------------------- |
+| `url`       | string | required | Start URL              |
+| `max_pages` | int    | `10`     | Maximum pages to crawl |
+| `depth`     | int    | `2`      | Maximum crawl depth    |
+| `render_js` | bool   | `false`  | Render JavaScript      |
 
 **SSE event types**
 
-| Event | Payload |
-|---|---|
-| `log` | `{ "message": "Crawling https://..." }` |
+| Event  | Payload                                              |
+| ------ | ---------------------------------------------------- |
+| `log`  | `{ "message": "Crawling https://..." }`              |
 | `item` | `{ "url": "...", "title": "...", "links_count": 5 }` |
-| `done` | `{ "total": 7, "elapsed": 3.2 }` |
+| `done` | `{ "total": 7, "elapsed": 3.2 }`                     |
 
 ---
 
@@ -266,16 +268,16 @@ Crawl a site and stream progress as **Server-Sent Events**.
 
 ### API
 
-| Variable | Default | Description |
-|---|---|---|
-| `PYTHONUNBUFFERED` | `1` | Flush stdout immediately |
+| Variable           | Default | Description              |
+| ------------------ | ------- | ------------------------ |
+| `PYTHONUNBUFFERED` | `1`     | Flush stdout immediately |
 
 ### UI
 
-| Variable | Default | Description |
-|---|---|---|
+| Variable              | Default                 | Description                   |
+| --------------------- | ----------------------- | ----------------------------- |
 | `NEXT_PUBLIC_API_URL` | `http://localhost:8000` | API base URL (**build-time**) |
-| `NODE_ENV` | `production` | Node environment |
+| `NODE_ENV`            | `production`            | Node environment              |
 
 ---
 
@@ -318,15 +320,15 @@ scrapper-tools/
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Scraping | [Scrapling](https://github.com/D4Vinci/Scrapling) |
-| API | [FastAPI](https://fastapi.tiangolo.com/) + [uvicorn](https://www.uvicorn.org/) |
-| Python runtime | Python 3.13 + [uv](https://docs.astral.sh/uv/) |
-| UI framework | [Next.js](https://nextjs.org/) 16 |
-| UI runtime | [Bun](https://bun.sh/) |
-| UI styling | [Tailwind CSS v4](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/) |
-| Containerization | Docker (multi-stage builds) + Docker Compose |
+| Layer            | Technology                                                                        |
+| ---------------- | --------------------------------------------------------------------------------- |
+| Scraping         | [Scrapling](https://github.com/D4Vinci/Scrapling)                                 |
+| API              | [FastAPI](https://fastapi.tiangolo.com/) + [uvicorn](https://www.uvicorn.org/)    |
+| Python runtime   | Python 3.13 + [uv](https://docs.astral.sh/uv/)                                    |
+| UI framework     | [Next.js](https://nextjs.org/) 16                                                 |
+| UI runtime       | [Bun](https://bun.sh/)                                                            |
+| UI styling       | [Tailwind CSS v4](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/) |
+| Containerization | Docker (multi-stage builds) + Docker Compose                                      |
 
 ---
 

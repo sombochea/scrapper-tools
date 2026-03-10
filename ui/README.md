@@ -1,3 +1,3 @@
 # Scrapper UI
 
-> Built-by [@sombochea](https://github.com/sombochea)
+> Built by [@sombochea](https://github.com/sombochea)

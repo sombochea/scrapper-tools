@@ -1,14 +1,13 @@
 /**
  * Typed client for the scrapper-tools FastAPI backend.
- * Base URL is read from NEXT_PUBLIC_API_URL (defaults to http://localhost:8000).
+ * All /api/* paths are proxied server-side via proxy.ts → API_INTERNAL_URL.
+ * Only relative paths are used here so no NEXT_PUBLIC_* variable is needed.
  */
-
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
 
 // ── shared helpers ────────────────────────────────────────────────────────────
 
 async function post<T>(path: string, body: unknown): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
+  const res = await fetch(path, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -152,7 +151,7 @@ export function spiderStream(
     max_pages: String(options.maxPages ?? 5),
   })
 
-  const es = new EventSource(`${BASE}/api/spider/stream?${params}`)
+  const es = new EventSource(`/api/spider/stream?${params}`)
 
   es.addEventListener("log", (e) => {
     try {
