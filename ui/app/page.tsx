@@ -134,7 +134,7 @@ export default function Home() {
               Get started <ArrowRight className="ml-1.5 size-4" />
             </Link>
             <a
-              href="https://github.com/D4Vinci/Scrapling"
+              href="https://github.com/sombochea/scrapper-tools"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-lg border border-white/40 px-2.5 text-sm font-medium whitespace-nowrap transition-all bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"

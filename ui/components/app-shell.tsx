@@ -121,7 +121,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
           <div className="ml-auto flex items-center gap-1">
             <a
-              href="https://github.com/D4Vinci/Scrapling"
+              href="https://github.com/sombochea/scrapper-tools"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
@@ -146,7 +146,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 Powered by
               </p>
               <a
-                href="https://github.com/D4Vinci/Scrapling"
+                href="https://github.com/sombochea/scrapper-tools"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
@@ -167,7 +167,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 py-4 text-center text-xs text-muted-foreground">
           ScrapeKit — built with{" "}
           <a
-            href="https://github.com/D4Vinci/Scrapling"
+            href="https://github.com/sombochea/scrapper-tools"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline"
